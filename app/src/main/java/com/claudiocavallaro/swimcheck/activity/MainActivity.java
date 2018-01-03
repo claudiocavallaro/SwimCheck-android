@@ -2,10 +2,8 @@ package com.claudiocavallaro.swimcheck.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
-import com.claudiocavallaro.swimcheck.com.claudiocavallaro.swimcheck.persistenza.RestCall;
+import com.claudiocavallaro.swimcheck.persistenza.RestCall;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
-import com.claudiocavallaro.swimcheck.com.claudiocavallaro.swimcheck.persistenza.RestCall;
+import com.claudiocavallaro.swimcheck.persistenza.RestCall;
 
 /**
  * Created by claudiocavallaro on 03/01/18.

@@ -1,4 +1,4 @@
-package com.claudiocavallaro.swimcheck.com.claudiocavallaro.swimcheck.persistenza;
+package com.claudiocavallaro.swimcheck.persistenza;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,19 +11,11 @@ import com.claudiocavallaro.swimcheck.R;
 import com.claudiocavallaro.swimcheck.activity.MainActivity;
 import com.claudiocavallaro.swimcheck.model.Atleta;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.DomSerializer;
 import org.htmlcleaner.TagNode;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
