@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginLeft="9dp"
+        android:id="@+id/textImpo1"
+        android:text="Per una migliore esperienza d'uso il numero di possibili risultati è settato a 5."/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginLeft="9dp"
+        android:id="@+id/textImpo2"
+        android:layout_below="@+id/textImpo1"
+        android:text="Consiglio la ricerca di atleta per nome e cognome, in caso contrario è possibile aumentare il numero di possibili risultati in questo form."/>
+
+
+    <EditText
+        android:id="@+id/editImpo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textImpo2"
+        android:layout_alignStart="@+id/textImpo2"
+        android:layout_below="@+id/textImpo2"
+        android:inputType="number"
+        android:layout_marginTop="13dp" />
+
+    <Button
+        android:id="@+id/buttonImpo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textImpo2"
+        android:layout_alignRight="@+id/textImpo2"
+        android:layout_alignTop="@+id/editImpo"
+        android:text="Conferma" />
+
+</RelativeLayout>

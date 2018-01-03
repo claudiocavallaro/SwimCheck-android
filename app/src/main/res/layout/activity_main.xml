@@ -8,14 +8,14 @@
     tools:context="com.claudiocavallaro.swimcheck.activity.MainActivity">
 
     <TextView
+        android:id="@+id/textMain1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:textSize="16dp"
-        android:id="@+id/textMain1"
-        android:text="Con questa applicazione potrai controllare i tempi in gare ufficiali FIN e UISP master."/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Con questa applicazione potrai controllare i tempi in gare ufficiali FIN e UISP master."
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:textSize="16dp"
-        android:text="Inserisci il nome dell'atleta nella casella"
+        android:text="Inserisci il nome e cognome dell'atleta nella casella"
         android:id="@+id/textView" />
 
     <EditText
@@ -49,4 +49,12 @@
         android:layout_below="@+id/editText"
         android:text="Conferma" />
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 </RelativeLayout>

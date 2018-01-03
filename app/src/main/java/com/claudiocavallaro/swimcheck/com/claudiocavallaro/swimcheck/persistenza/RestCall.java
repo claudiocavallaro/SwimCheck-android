@@ -1,7 +1,14 @@
 package com.claudiocavallaro.swimcheck.com.claudiocavallaro.swimcheck.persistenza;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.claudiocavallaro.swimcheck.R;
+import com.claudiocavallaro.swimcheck.activity.MainActivity;
 import com.claudiocavallaro.swimcheck.model.Atleta;
 
 import org.apache.http.HttpResponse;
@@ -29,6 +36,48 @@ import javax.xml.xpath.XPathFactory;
 public class RestCall extends AsyncTask<Object, Void, Object> {
 
     private String url = "http://aquatime.it/tempim.php?AtletaSRC=";
+
+    private static int limite = 5;
+
+    public static int getLimite() {
+        return limite;
+    }
+
+    public static void setLimite(int limite) {
+        RestCall.limite = limite;
+    }
+
+    private ProgressDialog progressDialog;
+    private ProgressBar spinner;
+    private static Context context;
+
+    private MainActivity mActivity;
+
+    public RestCall(MainActivity mActivity){
+        this.mActivity = mActivity;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
+
+    public static void setContext(Context context) {
+        RestCall.context = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        spinner = (ProgressBar) mActivity.findViewById(R.id.progressBar);
+        spinner.setVisibility(View.VISIBLE);
+        Toast.makeText(context, "Se non trovi quello che cerchi vai nelle impostazioni ed aumenta il limite di risultati", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+
+    }
 
     public String getUrl() {
         return url;
@@ -75,38 +124,58 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
                 e.printStackTrace();
             }
 
-            Atleta a = new Atleta();
-            //------NOME----------------------------
-            XPath xpath = XPathFactory.newInstance().newXPath();
-            String expressionNome = "(//div[1]/center/table[@class='datatable']/tbody/tr[1]/td[1])[1]";
-            XPathExpression exprNome = xpath.compile(expressionNome);
-            String nome = exprNome.evaluate(doc);
-            a.setNome(nome);
+            String nome = " ";
+            for(int i = 1; i <= limite; i++){
+                //------NOME----------------------------
+                XPath xpath = XPathFactory.newInstance().newXPath();
+                String expressionNome = "(//div[1]/center[4]/table[@class='datatable']/tbody/tr["+ i +"]/td[1])[1]";
+                XPathExpression exprNome = xpath.compile(expressionNome);
+                nome = exprNome.evaluate(doc);
+                if (!(nome.equals(""))){
+                    Atleta a = new Atleta();
+                    a.setNome(nome);
 
-            //---------ANNO----------------------------
-            String expressionAnno = "(//div[1]/center/table[@class='datatable']/tbody/tr[1]/td[2])[1]";
-            XPathExpression exprAnno = xpath.compile(expressionAnno);
-            String anno = exprAnno.evaluate(doc);
-            a.setAnno(anno);
+                    //---------ANNO----------------------------
+                    String expressionAnno = "(//div[1]/center[4]/table[@class='datatable']/tbody/tr["+ i +"]/td[2])[1]";
+                    XPathExpression exprAnno = xpath.compile(expressionAnno);
+                    String anno = exprAnno.evaluate(doc);
+                    a.setAnno(anno);
 
-            //----------SESSO---------------
-            String expressionSesso = "(//div[1]/center/table[@class='datatable']/tbody/tr[1]/td[4])[1]";
-            XPathExpression exprSesso = xpath.compile(expressionSesso);
-            String sesso = exprSesso.evaluate(doc);
-            a.setSesso(sesso);
+                    //----------SESSO---------------
+                    String expressionSesso = "(//div[1]/center[4]/table[@class='datatable']/tbody/tr["+ i +"]/td[4])[1]";
+                    XPathExpression exprSesso = xpath.compile(expressionSesso);
+                    String sesso = exprSesso.evaluate(doc);
+                    a.setSesso(sesso);
 
-            //--------SOCIETA--------------------
-            String expressionSoc = "(//div[1]/center/table[@class='datatable']/tbody/tr[1]/td[3])[1]";
-            XPathExpression exprSoc = xpath.compile(expressionSoc);
-            String soc = exprSoc.evaluate(doc);
-            a.setSoc(soc);
+                    //--------SOCIETA--------------------
+                    String expressionSoc = "(//div[1]/center[4]/table[@class='datatable']/tbody/tr["+ i +"]/td[3])[1]";
+                    XPathExpression exprSoc = xpath.compile(expressionSoc);
+                    String soc = exprSoc.evaluate(doc);
+                    a.setSoc(soc);
 
-            System.out.println(a.toString());
+                    System.out.println(a.toString());
+
+
+                    String expressionLink = "(//div[1]/center[4]/table[@class='datatable']/tbody/tr["+ i +"]/td[1]/a/@href)[1]";
+                    XPathExpression exprLink = xpath.compile(expressionLink);
+                    String link = exprLink.evaluate(doc);
+                    a.setUrl(link);
+                    //System.out.println(link);
+                }
+
             //}
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("fine");
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        spinner.setVisibility(View.INVISIBLE);
     }
 }
