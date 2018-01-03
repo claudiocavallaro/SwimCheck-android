@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.claudiocavallaro.swimcheck.R;
+import com.claudiocavallaro.swimcheck.com.claudiocavallaro.swimcheck.persistenza.RestCall;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                         nomeC[i] = '+';
                     }
                 }
-                nome = String.valueOf(nomeC);
+                nome = String.valueOf(nomeC) + "&Azione=1";
 
                 //System.out.println(nome);
 
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                 //------------------------------------------
 
-
+                RestCall restCall = new RestCall();
+                restCall.setUrl(nome);
+                restCall.execute();
 
             }
         });
