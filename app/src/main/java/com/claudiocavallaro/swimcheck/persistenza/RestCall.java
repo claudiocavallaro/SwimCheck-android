@@ -17,6 +17,8 @@ import org.htmlcleaner.TagNode;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 
+import java.util.ArrayList;
+
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
@@ -28,6 +30,7 @@ import javax.xml.xpath.XPathFactory;
 public class RestCall extends AsyncTask<Object, Void, Object> {
 
     private String url = "http://aquatime.it/tempim.php?AtletaSRC=";
+    private ArrayList<Atleta> listaAtleti = new ArrayList<Atleta>();
 
     private static int limite = 5;
 
@@ -153,6 +156,7 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
                     String link = exprLink.evaluate(doc);
                     a.setUrl(link);
                     //System.out.println(link);
+                    listaAtleti.add(a);
                 }
 
             //}
@@ -169,5 +173,6 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         spinner.setVisibility(View.INVISIBLE);
+        mActivity.showList(listaAtleti);
     }
 }

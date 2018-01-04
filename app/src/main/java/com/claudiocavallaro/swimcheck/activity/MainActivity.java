@@ -10,11 +10,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
+import com.claudiocavallaro.swimcheck.model.Atleta;
 import com.claudiocavallaro.swimcheck.persistenza.RestCall;
+import com.claudiocavallaro.swimcheck.vista.ListAdapterRicerca;
+import com.claudiocavallaro.swimcheck.vista.ModelloRicerca;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,5 +84,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showList(ArrayList<Atleta> listaAtleti) {
+        ArrayList<ModelloRicerca> models = new ArrayList<ModelloRicerca>();
+        for(Atleta a : listaAtleti){
+            models.add(new ModelloRicerca(a.getNome(), a.getSoc(), a.getAnno()));
+        }
+
+        ListAdapterRicerca adapterRicerca = new ListAdapterRicerca(this, models);
+        ListView lv = (ListView) findViewById(R.id.list_item);
+        lv.setAdapter(adapterRicerca);
+
+
     }
 }
