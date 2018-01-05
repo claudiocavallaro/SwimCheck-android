@@ -1,5 +1,8 @@
 package com.claudiocavallaro.swimcheck.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by claudiocavallaro on 03/01/18.
  */
@@ -15,6 +18,16 @@ public class Atleta {
 
     public String getUrl() {
         return url;
+    }
+
+    private ArrayList<Gara> listaGare = new ArrayList<>();
+
+    public ArrayList<Gara> getListaGare() {
+        return listaGare;
+    }
+
+    public void setListaGare(ArrayList<Gara> listaGare) {
+        this.listaGare = listaGare;
     }
 
     public void setUrl(String url) {

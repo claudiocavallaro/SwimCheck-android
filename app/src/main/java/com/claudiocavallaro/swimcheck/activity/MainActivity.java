@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,6 +25,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ModelloRicerca item;
+    private String itemSelected;
+    private Button conferma;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setVisibility(View.INVISIBLE);
         final EditText edit = (EditText) findViewById(R.id.editText);
 
-        Button conferma = (Button) findViewById(R.id.buttonConferma);
+        conferma = (Button) findViewById(R.id.buttonConferma);
         conferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,9 +98,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ListAdapterRicerca adapterRicerca = new ListAdapterRicerca(this, models);
-        ListView lv = (ListView) findViewById(R.id.list_item);
+        final ListView lv = (ListView) findViewById(R.id.list_item);
         lv.setAdapter(adapterRicerca);
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = (ModelloRicerca) lv.getItemAtPosition(i);
 
+                Intent intent = new Intent(MainActivity.this, AtletaActivity.class);
+                intent.putExtra("atleta", item);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void setButtonFalse() {
+        conferma.setClickable(false);
+    }
+
+    public void setButtonTrue() {
+        conferma.setClickable(true);
     }
 }

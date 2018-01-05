@@ -1,10 +1,12 @@
 package com.claudiocavallaro.swimcheck.vista;
 
+import java.io.Serializable;
+
 /**
  * Created by claudiocavallaro on 04/01/18.
  */
 
-public class ModelloRicerca {
+public class ModelloRicerca implements Serializable{
 
     private String nome;
     private String societa;

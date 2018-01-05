@@ -42,6 +42,8 @@
 
     <Button
         android:id="@+id/buttonConferma"
+        android:background="@drawable/button_draw"
+        android:textColor="#FFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/editText"

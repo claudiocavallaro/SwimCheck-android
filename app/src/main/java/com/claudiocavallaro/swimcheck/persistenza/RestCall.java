@@ -30,9 +30,17 @@ import javax.xml.xpath.XPathFactory;
 public class RestCall extends AsyncTask<Object, Void, Object> {
 
     private String url = "http://aquatime.it/tempim.php?AtletaSRC=";
-    private ArrayList<Atleta> listaAtleti = new ArrayList<Atleta>();
+    private static ArrayList<Atleta> listaAtleti = new ArrayList<Atleta>();
 
     private static int limite = 5;
+
+    public static ArrayList<Atleta> getListaAtleti() {
+        return listaAtleti;
+    }
+
+    public static void setListaAtleti(ArrayList<Atleta> listaAtleti) {
+        RestCall.listaAtleti = listaAtleti;
+    }
 
     public static int getLimite() {
         return limite;
@@ -65,13 +73,15 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
         super.onPreExecute();
         spinner = (ProgressBar) mActivity.findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
+        listaAtleti = new ArrayList<Atleta>();
+        mActivity.setButtonFalse();
         Toast.makeText(context, "Se non trovi quello che cerchi vai nelle impostazioni ed aumenta il limite di risultati", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-
+        mActivity.setButtonFalse();
     }
 
     public String getUrl() {
@@ -174,5 +184,6 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
         super.onPostExecute(o);
         spinner.setVisibility(View.INVISIBLE);
         mActivity.showList(listaAtleti);
+        mActivity.setButtonTrue();
     }
 }
