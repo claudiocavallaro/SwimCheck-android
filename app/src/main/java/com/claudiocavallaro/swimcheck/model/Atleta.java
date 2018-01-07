@@ -1,5 +1,8 @@
 package com.claudiocavallaro.swimcheck.model;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -24,6 +27,16 @@ public class Atleta {
 
     public ArrayList<Gara> getListaGare() {
         return listaGare;
+    }
+
+    public ArrayList<Gara> cercaGare(String gara){
+        ArrayList<Gara> listaAppoggio = new ArrayList<>();
+        for (Gara g : listaGare){
+            if (g.getTipo().equals(gara)){
+                listaAppoggio.add(g);
+            }
+        }
+        return listaAppoggio;
     }
 
     public void setListaGare(ArrayList<Gara> listaGare) {

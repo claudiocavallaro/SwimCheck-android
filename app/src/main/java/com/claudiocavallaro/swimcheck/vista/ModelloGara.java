@@ -11,6 +11,15 @@ public class ModelloGara {
     private String tempo;
     private int image;
 
+    private String link;
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public int getImage() {
         return image;

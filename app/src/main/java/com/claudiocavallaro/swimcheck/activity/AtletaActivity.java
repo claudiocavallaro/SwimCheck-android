@@ -39,6 +39,16 @@ public class AtletaActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ListAdapterGara listAdapterGara;
 
+    private static Atleta a;
+
+    public static Atleta getA() {
+        return a;
+    }
+
+    public static void setA(Atleta a) {
+        AtletaActivity.a = a;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +58,7 @@ public class AtletaActivity extends AppCompatActivity {
         this.setTitle(item.getNome());
 
         ArrayList<Atleta> listaAtleti = RestCall.getListaAtleti();
-        Atleta a = null;
+        a = null;
         for (int i = 0 ; i < listaAtleti.size(); i++){
             if (item.getNome().equals(listaAtleti.get(i).getNome()) && item.getAnno().equals(listaAtleti.get(i).getAnno()) && item.getSocieta().equals(listaAtleti.get(i).getSoc())){
                 a = listaAtleti.get(i);
@@ -82,7 +92,7 @@ public class AtletaActivity extends AppCompatActivity {
         finish();
     }
 
-    public void setIterface(Atleta atleta, ArrayList<Gara> listaGare) {
+    public void setIterface(Atleta atleta, final ArrayList<Gara> listaGare) {
         for (Gara gara : listaGare){
             ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
             if (gara.getFederazione().equals("FIN")){
@@ -94,6 +104,7 @@ public class AtletaActivity extends AppCompatActivity {
             models.add(modelloGara);
         }
 
+        a.setListaGare(listaGare);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -103,7 +114,12 @@ public class AtletaActivity extends AppCompatActivity {
         listAdapterGara.setClickListener(new ListAdapterGara.ClickListener() {
             @Override
             public void itemClicked(View view, int position) {
-                Toast.makeText(getApplicationContext(), "Ho cliccato " + models.get(position).getGara(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Ho cliccato " + models.get(position).getGara(), Toast.LENGTH_LONG).show();
+                String gara = models.get(position).getGara();
+
+                Intent i = new Intent(AtletaActivity.this, GaraActivity.class);
+                i.putExtra("tipo", gara);
+                startActivity(i);
             }
         });
 

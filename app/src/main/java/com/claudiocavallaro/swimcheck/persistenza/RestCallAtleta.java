@@ -103,6 +103,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                 e.printStackTrace();
             }
 
+            //------SCANSIONE ELENCO GARE----------------------------
             String garaString = " ";
             for (int i = 1; i <= 30; i++) {
                 XPath xpath = XPathFactory.newInstance().newXPath();
@@ -162,12 +163,24 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     String categoria = exprCategoria.evaluate(doc);
                     gara1.setCategoria(categoria);
 
-                    System.out.println(gara1.toString());
+
+                    /*String expressionLink = "//div[1]/center[5]/table/tbody/tr["+ i +"]/td[1]/a/@href";
+                    XPathExpression exprLink = xpath.compile(expressionLink);
+                    String link = exprLink.evaluate(doc);
+                    System.out.println("link " + link);*/
+
+                    //System.out.println(gara1.toString());
                     listaGare.add(gara1);
                 }
             }
 
+            //--------------------------------------------------------------------------------------
+
+
+
             atleta.setListaGare(listaGare);
+
+
 
 
         } catch (Exception e) {
