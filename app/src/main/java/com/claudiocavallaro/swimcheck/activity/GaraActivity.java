@@ -1,7 +1,9 @@
 package com.claudiocavallaro.swimcheck.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,14 +51,10 @@ public class GaraActivity extends AppCompatActivity {
         this.setTitle(garaS);
 
         Collections.sort(listaAppoggio, new Comparator<Gara>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public int compare(Gara gara, Gara t1) {
-                if (gara.getTime() == t1.getTime()){
-                    return 0;
-                } else if (gara.getTime() > t1.getTime()){
-                    return -1;
-                }
-                return 1;
+            public int compare(Gara g0, Gara g1) {
+                return Long.compare(g0.getTime(), g1.getTime());
             }
         });
 
@@ -65,7 +63,8 @@ public class GaraActivity extends AppCompatActivity {
         for (int i = 0; i < listaAppoggio.size(); i++){
 
             gara = listaAppoggio.get(i);
-            if (i == 0){
+            System.out.println("Time " + gara.getTime() + " tempo " + gara.getTempo());
+            if (i == 0 && !(gara.getTempo().equals("Squalificato"))){
                 ModelloGara modelloGara = new ModelloGara(gara.getTipo() + "\nRECORD PERSONALE", gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
                 if (gara.getFederazione().equals("FIN")){
                     modelloGara.setImage(R.drawable.fin2);
@@ -97,6 +96,18 @@ public class GaraActivity extends AppCompatActivity {
 
 
         recyclerView.setAdapter(listAdapterGara);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
 

@@ -131,18 +131,25 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     String expressionTempo = "//div[1]/center[7]/table/tbody/tr["+ i +"]/td[4]/a/text()";
                     XPathExpression exprTempo = xpath.compile(expressionTempo);
                     String tempo = exprTempo.evaluate(doc);
-                    gara1.setTime(gara1.toTime(tempo));
+
 
                     if (tempo.equals("")){
                         expressionTempo = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[4]";
                         exprTempo = xpath.compile(expressionTempo);
                         tempo = exprTempo.evaluate(doc);
                         gara1.setTempo(tempo);
+                        if (tempo.equals("Squalificato")){
+                            gara1.setTime(0);
+                        }else{
+                            gara1.setTime(gara1.toTime(tempo));
+                        }
                     } else {
                         if (gara1.getTipo().contains("4x")) {
                             gara1.setTempo("Tempo totale staffetta : " + tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length()));
+                            gara1.setTime(gara1.toTime(tempo));
                         } else {
                             gara1.setTempo(tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length()));
+                            gara1.setTime(gara1.toTime(tempo));
                         }
                     }
 

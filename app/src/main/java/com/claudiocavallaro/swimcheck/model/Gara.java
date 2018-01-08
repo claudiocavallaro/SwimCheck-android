@@ -1,5 +1,8 @@
 package com.claudiocavallaro.swimcheck.model;
 
+import android.util.TimeUtils;
+
+import java.io.Serializable;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
@@ -7,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Created by claudiocavallaro on 04/01/18.
  */
 
-public class Gara {
+public class Gara implements Serializable{
 
     private String data;
     private String tipo;
@@ -92,21 +95,27 @@ public class Gara {
         long tot;
 
         StringTokenizer st = new StringTokenizer(prova, "'");
-        Integer min = new Integer(0);
-        Integer sec = new Integer(0);
-        Integer milli = new Integer(0);
+        long min = 0;
+        long sec = 0;
+        long milli = 0;
         while(st.hasMoreElements()) {
-            min = Integer.parseInt(st.nextElement().toString());
+            /*min = Integer.parseInt(st.nextElement().toString());
             sec = Integer.parseInt(st.nextElement().toString());
-            milli = Integer.parseInt(st.nextElement().toString());
+            milli = Integer.parseInt(st.nextElement().toString());*/
 
-            System.out.println("min " + min + " sec " + sec + " milli " + milli);
+            min = Long.parseLong(st.nextElement().toString());
+            sec = Long.parseLong(st.nextElement().toString());
+            milli = Long.parseLong(st.nextElement().toString());
+
+            //System.out.println("min " + min + " sec " + sec + " milli " + milli);
         }
 
-        long minL = TimeUnit.MILLISECONDS.toMillis(min);
-        long secL = TimeUnit.MILLISECONDS.toMillis(sec);
-        tot = minL + secL + milli;
+        long minL = TimeUnit.MINUTES.toMillis(min);
+        long secL = TimeUnit.SECONDS.toMillis(sec);
+        long milliL = TimeUnit.MILLISECONDS.toMillis(milli);
 
-        return tot;
+        long totL = minL+ secL + milliL;
+
+        return totL;
     }
 }
