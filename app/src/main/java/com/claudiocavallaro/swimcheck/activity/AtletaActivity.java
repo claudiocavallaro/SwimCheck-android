@@ -80,7 +80,7 @@ public class AtletaActivity extends AppCompatActivity {
 
     //----da provare a lungo termine-----
 
-    @Override
+   /* @Override
     protected void onPause() {
         super.onPause();
         this.finish();
@@ -91,6 +91,8 @@ public class AtletaActivity extends AppCompatActivity {
         super.onStop();
         finish();
     }
+*/
+
 
     public void setIterface(Atleta atleta, final ArrayList<Gara> listaGare) {
         for (Gara gara : listaGare){

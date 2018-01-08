@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by claudiocavallaro on 03/01/18.
@@ -17,7 +19,8 @@ public class Atleta {
     private String soc;
     private String sesso;
 
-    private String url ;
+
+    private String url;
 
     public String getUrl() {
         return url;
@@ -29,10 +32,10 @@ public class Atleta {
         return listaGare;
     }
 
-    public ArrayList<Gara> cercaGare(String gara){
+    public ArrayList<Gara> cercaGare(String gara) {
         ArrayList<Gara> listaAppoggio = new ArrayList<>();
-        for (Gara g : listaGare){
-            if (g.getTipo().equals(gara)){
+        for (Gara g : listaGare) {
+            if (g.getTipo().equals(gara)) {
                 listaAppoggio.add(g);
             }
         }
@@ -79,7 +82,8 @@ public class Atleta {
         this.soc = soc;
     }
 
-    public String toString(){
+    public String toString() {
         return "Atleta : \nNome " + nome + "\nAnno di nascita: " + anno + "\nSocietà: " + soc + "\nSesso: " + sesso + "\n";
     }
+
 }

@@ -131,6 +131,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     String expressionTempo = "//div[1]/center[7]/table/tbody/tr["+ i +"]/td[4]/a/text()";
                     XPathExpression exprTempo = xpath.compile(expressionTempo);
                     String tempo = exprTempo.evaluate(doc);
+                    gara1.setTime(gara1.toTime(tempo));
 
                     if (tempo.equals("")){
                         expressionTempo = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[4]";

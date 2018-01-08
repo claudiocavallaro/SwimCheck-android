@@ -14,6 +14,9 @@ import com.claudiocavallaro.swimcheck.vista.ModelloGara;
 import com.claudiocavallaro.swimcheck.vista.ModelloRicerca;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.StringTokenizer;
 
 /**
  * Created by claudiocavallaro on 07/01/18.
@@ -45,16 +48,44 @@ public class GaraActivity extends AppCompatActivity {
 
         this.setTitle(garaS);
 
+        Collections.sort(listaAppoggio, new Comparator<Gara>() {
+            @Override
+            public int compare(Gara gara, Gara t1) {
+                if (gara.getTime() == t1.getTime()){
+                    return 0;
+                } else if (gara.getTime() > t1.getTime()){
+                    return -1;
+                }
+                return 1;
+            }
+        });
 
-        for (Gara gara : listaAppoggio){
-            ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
-            if (gara.getFederazione().equals("FIN")){
-                modelloGara.setImage(R.drawable.fin2);
+
+        Gara gara = new Gara();
+        for (int i = 0; i < listaAppoggio.size(); i++){
+
+            gara = listaAppoggio.get(i);
+            if (i == 0){
+                ModelloGara modelloGara = new ModelloGara(gara.getTipo() + "\nRECORD PERSONALE", gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
+                if (gara.getFederazione().equals("FIN")){
+                    modelloGara.setImage(R.drawable.fin2);
+                }
+                if (gara.getFederazione().equals("UISP")){
+                    modelloGara.setImage(R.drawable.uisp);
+                }
+                models.add(modelloGara);
+            } else {
+                ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
+                if (gara.getFederazione().equals("FIN")){
+                    modelloGara.setImage(R.drawable.fin2);
+                }
+                if (gara.getFederazione().equals("UISP")){
+                    modelloGara.setImage(R.drawable.uisp);
+                }
+                models.add(modelloGara);
             }
-            if (gara.getFederazione().equals("UISP")){
-                modelloGara.setImage(R.drawable.uisp);
-            }
-            models.add(modelloGara);
+
+
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_viewG);
@@ -66,7 +97,7 @@ public class GaraActivity extends AppCompatActivity {
 
 
         recyclerView.setAdapter(listAdapterGara);
-
-
     }
+
+
 }
