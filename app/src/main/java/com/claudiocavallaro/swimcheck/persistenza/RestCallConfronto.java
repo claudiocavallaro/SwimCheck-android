@@ -1,6 +1,5 @@
 package com.claudiocavallaro.swimcheck.persistenza;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
+import com.claudiocavallaro.swimcheck.activity.ConfrontaActivity;
 import com.claudiocavallaro.swimcheck.activity.MainActivity;
 import com.claudiocavallaro.swimcheck.model.Atleta;
 
@@ -25,20 +25,25 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
 /**
- * Created by claudiocavallaro on 03/01/18.
+ * Created by claudiocavallaro on 13/01/18.
  */
 
-public class RestCall extends AsyncTask<Object, Void, Object> {
+public class RestCallConfronto extends AsyncTask<Object, Void, Object> {
 
     private String url = "http://aquatime.it/tempim.php?AtletaSRC=";
-    private static ArrayList<Atleta> listaAtleti = new ArrayList<Atleta>();
+    private static ArrayList<Atleta> listaAtleti;
 
     private static int limite = 5;
 
-    private MainActivity mainActivity;
+    private ConfrontaActivity mainActivity;
 
-    public RestCall(MainActivity mActivity){
+    public RestCallConfronto(ConfrontaActivity mActivity){
         this.mainActivity = mActivity;
+        if (listaAtleti == null){
+            listaAtleti = new ArrayList<>();
+        } else {
+            System.out.println(listaAtleti.size());
+        }
     }
 
     public static ArrayList<Atleta> getListaAtleti() {
@@ -46,7 +51,7 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
     }
 
     public static void setListaAtleti(ArrayList<Atleta> listaAtleti) {
-        RestCall.listaAtleti = listaAtleti;
+        RestCallConfronto.listaAtleti = listaAtleti;
     }
 
     public static int getLimite() {
@@ -54,7 +59,8 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
     }
 
     public static void setLimite(int limite) {
-        RestCall.limite = limite;
+
+        RestCallConfronto.limite = limite;
     }
 
     private ProgressDialog progressDialog;
@@ -67,7 +73,7 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
     }
 
     public static void setContext(Context context) {
-        RestCall.context = context;
+        RestCallConfronto.context = context;
     }
 
     @Override
@@ -171,7 +177,7 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
                     listaAtleti.add(a);
                 }
 
-            //}
+                //}
 
             }
         } catch (Exception e) {

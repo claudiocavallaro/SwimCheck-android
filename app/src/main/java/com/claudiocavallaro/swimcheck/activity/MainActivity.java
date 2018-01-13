@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this, ImpostazioniActivity.class);
             startActivity(i);
         }
+
+        if (id == R.id.menu_confronto){
+            Intent i = new Intent(MainActivity.this, ConfrontaActivity.class);
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 

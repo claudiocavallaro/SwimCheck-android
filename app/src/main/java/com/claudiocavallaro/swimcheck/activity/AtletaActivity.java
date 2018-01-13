@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
@@ -92,6 +94,26 @@ public class AtletaActivity extends AppCompatActivity {
         finish();
     }
 */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_atleta, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        /*if (id == R.id.menu_fav){
+            aggiungi(a);
+        }*/
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void aggiungi(Atleta a) {
+
+    }
 
 
     public void setIterface(Atleta atleta, final ArrayList<Gara> listaGare) {
