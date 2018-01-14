@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
 import com.claudiocavallaro.swimcheck.activity.AtletaActivity;
@@ -76,6 +77,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
         super.onPreExecute();
         spinner = (ProgressBar) mActivity.findViewById(R.id.progressBarAtleta);
         spinner.setVisibility(View.VISIBLE);
+        Toast.makeText(context, "Ricorda che verranno considerata solo le ultime 20 gare disputate", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -112,7 +114,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                 garaString = exprGara.evaluate(doc);
                 int start = garaString.indexOf("(") + 1;
                 int end = garaString.indexOf(")");
-                String gara = garaString.substring(start, end);
+                String gara = garaString.replaceAll("&deg;","°");
                 //gara = gara.substring(0, gara.length() - 1);
                 if (!(gara.equals(""))) {
                     Gara gara1 = new Gara();
@@ -139,7 +141,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                         tempo = exprTempo.evaluate(doc);
                         gara1.setTempo(tempo);
                         if (tempo.equals("Squalificato")){
-                            gara1.setTime(0);
+                            gara1.setTime(999999999);
                         }else{
                             gara1.setTime(gara1.toTime(tempo));
                         }
@@ -148,8 +150,10 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                             gara1.setTempo("Tempo totale staffetta : " + tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length()));
                             gara1.setTime(gara1.toTime(tempo));
                         } else {
-                            gara1.setTempo(tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length()));
-                            gara1.setTime(gara1.toTime(tempo));
+                            String tempoSt = tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length());
+                            gara1.setTempo(tempoSt);
+                            System.out.println(tempo);
+                            gara1.setTime(gara1.toTime(tempoSt));
                         }
                     }
 

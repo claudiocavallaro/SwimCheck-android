@@ -27,6 +27,15 @@ public class Atleta {
     }
 
     private ArrayList<Gara> listaGare = new ArrayList<>();
+    private ArrayList<Gara> listBest = new ArrayList<>();
+
+    public ArrayList<Gara> getListBest() {
+        return listBest;
+    }
+
+    public void setListBest(ArrayList<Gara> listBest) {
+        this.listBest = listBest;
+    }
 
     public ArrayList<Gara> getListaGare() {
         return listaGare;
@@ -41,6 +50,35 @@ public class Atleta {
         }
         return listaAppoggio;
     }
+
+
+    public ArrayList<String> cercaTipiGara(){
+        ArrayList<String> tipiGare = new ArrayList<>();
+        for (Gara gara : listaGare){
+            if (tipiGare.contains(gara.getTipo())){
+                //do nothing
+            } else{
+                tipiGare.add(gara.getTipo());
+            }
+        }
+        return tipiGare;
+    }
+
+
+    public void best(){
+        ArrayList<String> listaTipi = cercaTipiGara();
+        for (int i = 0 ; i < listaTipi.size(); i++){
+            ArrayList<Gara> listaGare = cercaGare(listaTipi.get(i));
+            Gara min = listaGare.get(0);
+            for (Gara gara : listaGare){
+                if (gara.getTime() < min.getTime()){
+                    min = gara;
+                }
+            }
+            listBest.add(min);
+        }
+    }
+
 
     public void setListaGare(ArrayList<Gara> listaGare) {
         this.listaGare = listaGare;

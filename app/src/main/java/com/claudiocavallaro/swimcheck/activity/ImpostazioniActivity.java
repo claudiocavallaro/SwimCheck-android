@@ -26,6 +26,8 @@ public class ImpostazioniActivity extends AppCompatActivity {
         final EditText editText = (EditText) findViewById(R.id.editImpo);
 
 
+        setTitle("Impostazioni");
+
         Button conferma = (Button) findViewById(R.id.buttonImpo);
         conferma.setOnClickListener(new View.OnClickListener() {
             @Override

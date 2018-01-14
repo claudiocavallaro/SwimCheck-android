@@ -67,6 +67,8 @@ public class AtletaActivity extends AppCompatActivity {
             }
         }
 
+
+
         System.out.println(a.getUrl());
 
         ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBarAtleta);
@@ -118,7 +120,8 @@ public class AtletaActivity extends AppCompatActivity {
 
     public void setIterface(Atleta atleta, final ArrayList<Gara> listaGare) {
         for (Gara gara : listaGare){
-            ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
+            //ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + "\n" + gara.getData() + "\n" + gara.getVasca(), gara.getTempo());
+            ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta(), gara.getTempo());
             if (gara.getFederazione().equals("FIN")){
                 modelloGara.setImage(R.drawable.fin2);
             }
@@ -147,6 +150,9 @@ public class AtletaActivity extends AppCompatActivity {
             }
         });
 
+        a.best();
+
+        //System.out.println(a.getListBest());
 
         recyclerView.setAdapter(listAdapterGara);
     }

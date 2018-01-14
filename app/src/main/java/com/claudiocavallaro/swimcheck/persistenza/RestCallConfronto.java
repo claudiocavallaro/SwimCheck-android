@@ -83,7 +83,7 @@ public class RestCallConfronto extends AsyncTask<Object, Void, Object> {
         spinner.setVisibility(View.VISIBLE);
         listaAtleti = new ArrayList<Atleta>();
         mainActivity.setButtonFalse();
-        Toast.makeText(context, "Se non trovi quello che cerchi vai nelle impostazioni ed aumenta il limite di risultati", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Se non trovi quello che cerchi scrivi il nome completo", Toast.LENGTH_LONG).show();
     }
 
     @Override

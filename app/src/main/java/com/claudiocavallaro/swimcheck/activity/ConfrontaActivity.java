@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -42,13 +43,23 @@ public class ConfrontaActivity extends AppCompatActivity {
 
     private boolean isInThere = false;
 
-    private static ArrayList<Atleta> listaAppoggioConfronto = new ArrayList<>();
+    private static ArrayList<Atleta> listaAppoggioConfronto ;
+
+    public static ArrayList<Atleta> getListaAppoggioConfronto() {
+        return listaAppoggioConfronto;
+    }
+
+    public static void setListaAppoggioConfronto(ArrayList<Atleta> listaAppoggioConfronto) {
+        ConfrontaActivity.listaAppoggioConfronto = listaAppoggioConfronto;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_confronto);
         setTitle("Confronto atleti");
+
+        listaAppoggioConfronto = new ArrayList<>();
 
         ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar);
         spinner.setVisibility(View.INVISIBLE);
@@ -92,12 +103,15 @@ public class ConfrontaActivity extends AppCompatActivity {
         confronto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listaAppoggioConfronto.size() < 2){
+                if (listaAppoggioConfronto.size() < 2) {
                     Toast.makeText(ConfrontaActivity.this, "Devi inserire almeno due atleti per poter effettuare il confronto", Toast.LENGTH_LONG).show();
                 } else {
                     for (Atleta atleta : listaAppoggioConfronto) {
-                        System.out.println(atleta.toString());
+                        //System.out.println(atleta.toString());
                     }
+                    Intent i = new Intent(ConfrontaActivity.this, ResultActivity.class);
+                    startActivity(i);
+                    finish();
                 }
 
             }
@@ -134,7 +148,7 @@ public class ConfrontaActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 isInThere = cercaNellaLista(app, listaAppoggioConfronto);
-                                if (isInThere == false){
+                                if (isInThere == false) {
                                     ConfrontaActivity.listaAppoggioConfronto.add(app);
                                     tv.setText("Numero atleti selezionati : " + listaAppoggioConfronto.size());
                                 } else {
@@ -159,9 +173,9 @@ public class ConfrontaActivity extends AppCompatActivity {
     }
 
     private boolean cercaNellaLista(Atleta app, ArrayList<Atleta> listaAppoggioConfronto) {
-        for (int i = 0 ; i < listaAppoggioConfronto.size(); i++){
+        for (int i = 0; i < listaAppoggioConfronto.size(); i++) {
             Atleta a = listaAppoggioConfronto.get(i);
-            if (a.getNome().equals(app.getNome()) && a.getSoc().equals(app.getSoc()) && a.getAnno().equals(app.getAnno())){
+            if (a.getNome().equals(app.getNome()) && a.getSoc().equals(app.getSoc()) && a.getAnno().equals(app.getAnno())) {
                 return true;
             }
         }
@@ -177,5 +191,12 @@ public class ConfrontaActivity extends AppCompatActivity {
         conferma.setClickable(true);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

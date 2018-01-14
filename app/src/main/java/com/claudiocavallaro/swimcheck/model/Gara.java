@@ -19,6 +19,16 @@ public class Gara implements Serializable{
     private String federazione;
     private String categoria;
 
+    private Atleta atleta;
+
+    public Atleta getAtleta() {
+        return atleta;
+    }
+
+    public void setAtleta(Atleta atleta) {
+        this.atleta = atleta;
+    }
+
     private long time;
 
     public long getTime() {
