@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 
 import com.claudiocavallaro.swimcheck.R;
 import com.claudiocavallaro.swimcheck.model.Atleta;
 import com.claudiocavallaro.swimcheck.model.Gara;
 import com.claudiocavallaro.swimcheck.persistenza.RestCallResult;
+import com.claudiocavallaro.swimcheck.vista.ListAdapterConfronto;
+import com.claudiocavallaro.swimcheck.vista.ModelloConfronto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,8 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_result);
+
+        this.setTitle("Confronto atleti");
 
         ArrayList<Atleta> lista = ConfrontaActivity.getListaAppoggioConfronto();
 
@@ -70,14 +75,23 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+
+        ArrayList<ModelloConfronto> modelloConfrontos = new ArrayList<>();
+
         for (String string : tipiGara){
             System.out.println("-----" + string + "------");
+            modelloConfrontos.add(new ModelloConfronto(string));
             for (Gara gara : best){
                 if (gara.getTipo().equals(string)){
+                    modelloConfrontos.add(new ModelloConfronto(gara.getTipo(), gara.getAtleta().getNome(), gara.getTempo() + " - " + gara.getData()));
                     System.out.println( gara.getAtleta().getNome() + " " + gara.getTempo());
                 }
             }
         }
+
+        ListAdapterConfronto listAdapterConfronto = new ListAdapterConfronto(this, modelloConfrontos);
+        ListView lv = (ListView) findViewById(R.id.listViewResult);
+        lv.setAdapter(listAdapterConfronto);
 
     }
 }
