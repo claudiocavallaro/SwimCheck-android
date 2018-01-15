@@ -114,7 +114,8 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                 garaString = exprGara.evaluate(doc);
                 int start = garaString.indexOf("(") + 1;
                 int end = garaString.indexOf(")");
-                String gara = garaString.replaceAll("&deg;","°");
+                String garaT = garaString.replaceAll("&deg;","°");
+                String gara = garaT.replaceAll("&igrave;", "ì");
                 //gara = gara.substring(0, gara.length() - 1);
                 if (!(gara.equals(""))) {
                     Gara gara1 = new Gara();

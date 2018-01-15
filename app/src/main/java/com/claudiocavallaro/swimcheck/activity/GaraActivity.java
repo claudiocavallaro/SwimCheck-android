@@ -1,5 +1,6 @@
 package com.claudiocavallaro.swimcheck.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.claudiocavallaro.swimcheck.R;
 import com.claudiocavallaro.swimcheck.model.Atleta;
@@ -31,6 +34,8 @@ public class GaraActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ListAdapterGara listAdapterGara;
 
+    private ArrayList<Gara> listaAppoggio;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,7 @@ public class GaraActivity extends AppCompatActivity {
 
         System.out.println(a.getNome());
 
-        ArrayList<Gara> listaAppoggio = a.cercaGare(garaS);
+        listaAppoggio = a.cercaGare(garaS);
 
         System.out.println(listaAppoggio.size());
 
@@ -98,7 +103,7 @@ public class GaraActivity extends AppCompatActivity {
         recyclerView.setAdapter(listAdapterGara);
     }
 
-    @Override
+/*    @Override
     protected void onPause() {
         super.onPause();
         this.finish();
@@ -108,6 +113,26 @@ public class GaraActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         finish();
+    }*/
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_gara, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_grafico){
+            Intent i = new Intent(this, GraficoActivity.class);
+            i.putExtra("lista", listaAppoggio);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
