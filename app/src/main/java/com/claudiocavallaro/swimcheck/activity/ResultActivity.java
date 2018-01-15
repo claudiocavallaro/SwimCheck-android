@@ -83,7 +83,7 @@ public class ResultActivity extends AppCompatActivity {
             modelloConfrontos.add(new ModelloConfronto(string));
             for (Gara gara : best){
                 if (gara.getTipo().equals(string)){
-                    modelloConfrontos.add(new ModelloConfronto(gara.getTipo(), gara.getAtleta().getNome(), gara.getTempo() + " - " + gara.getData()));
+                    modelloConfrontos.add(new ModelloConfronto(gara.getTipo(), gara.getAtleta().getNome(), gara.getTempo() + " - " + gara.getData() + " - " + gara.getVasca()));
                     System.out.println( gara.getAtleta().getNome() + " " + gara.getTempo());
                 }
             }
