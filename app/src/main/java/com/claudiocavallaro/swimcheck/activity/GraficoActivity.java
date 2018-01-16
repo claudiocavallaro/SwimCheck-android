@@ -2,8 +2,10 @@ package com.claudiocavallaro.swimcheck.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,6 +57,7 @@ public class GraficoActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         lista = (ArrayList<Gara>) intent.getSerializableExtra("lista");
 
+        //Collections.reverse(lista);
 
         String tipo ="";
         for (Gara gara: lista){
@@ -99,8 +103,8 @@ public class GraficoActivity extends AppCompatActivity {
 
         chart.setDescription(description);
         chart.setData(data);
-        chart.animateXY(2000, 2000);
-        chart.invalidate();
+        //chart.animateXY(2000, 2000);
+        //chart.invalidate();
 
     }
 
@@ -111,14 +115,12 @@ public class GraficoActivity extends AppCompatActivity {
 
 
 
-        for (int k = 0 ; k< lista.size() ; k++){
+        for (int k = 0 ; k < lista.size() ; k++){
             Gara gara = lista.get(k);
-
+            System.out.println("Numero " + k + " gara " + gara.getTempo());
             Entry v1e1 = new Entry(gara.getTime(),  k, gara);
             valueSet1.add(v1e1);
-
         }
-
 
 
         LineDataSet barDataSet1 = new LineDataSet(valueSet1, "Tempo");

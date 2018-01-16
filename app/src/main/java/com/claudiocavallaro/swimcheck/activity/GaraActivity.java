@@ -36,6 +36,7 @@ public class GaraActivity extends AppCompatActivity {
 
     private ArrayList<Gara> listaAppoggio;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class GaraActivity extends AppCompatActivity {
         listaAppoggio = a.cercaGare(garaS);
 
         System.out.println(listaAppoggio.size());
+
 
         this.setTitle(garaS);
 
@@ -134,6 +136,7 @@ public class GaraActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

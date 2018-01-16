@@ -124,7 +124,8 @@ public class RestCallResult extends AsyncTask<Object, Void, Object> {
                     int start = garaString.indexOf("(") + 1;
                     int end = garaString.indexOf(")");
                     //String gara = garaString.substring(start, end);
-                    String gara = garaString.replaceAll("&deg;","°");
+                    String garaT = garaString.replaceAll("&deg;","°");
+                    String gara = garaT.replaceAll("&igrave;", "ì");
                     System.out.println(gara);
                     if (!(gara.equals(""))) {
                         Gara gara1 = new Gara();
