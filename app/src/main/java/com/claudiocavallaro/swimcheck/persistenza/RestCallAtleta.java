@@ -107,7 +107,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
 
             //------SCANSIONE ELENCO GARE----------------------------
             String garaString = " ";
-            for (int i = 1; i <= 30; i++) {
+            for (int i = 1; i <= 20; i++) {
                 XPath xpath = XPathFactory.newInstance().newXPath();
                 String expressionGara = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[1]";
                 XPathExpression exprGara = xpath.compile(expressionGara);

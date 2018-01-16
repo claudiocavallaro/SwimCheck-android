@@ -1,7 +1,9 @@
 package com.claudiocavallaro.swimcheck.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,12 +24,14 @@ import com.claudiocavallaro.swimcheck.vista.ListAdapterRicerca;
 import com.claudiocavallaro.swimcheck.vista.ModelloRicerca;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private ModelloRicerca item;
     private String itemSelected;
     private Button conferma;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,35 +47,87 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nome = edit.getText().toString();
-                char[] nomeC = nome.toCharArray();
-                if (nomeC.length < 3){
-                    Toast.makeText(getApplicationContext(), "Devi inserire almeno tre caratteri per la ricerca", Toast.LENGTH_LONG).show();
-                } else {
-                    for (int i = 0 ; i < nomeC.length; i++){
-                        if (nomeC[i] == ' '){
-                            nomeC[i] = '+';
-                        }
-                    }
-                    nome = String.valueOf(nomeC) + "&Azione=1";
 
-                    //System.out.println(nome);
-
+                if (nome.equals("Luigi Pagano") || nome.equals("luigi pagano") || nome.equals("Luigi pagano") || nome.equals("luigi Pagano")) {
+                    ArrayList<Atleta> list = new ArrayList<>();
+                    Atleta a = new Atleta();
+                    a.setNome("Luigi Pagano");
+                    a.setUrl("?Atleta=72737&Azione=2");
+                    a.setSesso("M");
+                    a.setSoc("Gym Sport Mania SSD - Terzigno");
+                    a.setAnno("1999");
+                    list.add(a);
+                    RestCall.setListaAtleti(list);
                     //----- HIDE KEYBOARD AFTER CLICK-----------
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                     //------------------------------------------
 
-                    RestCall restCall = new RestCall(MainActivity.this);
-                    RestCall.setContext(getApplicationContext());
-                    restCall.setUrl(nome);
-                    restCall.execute();
+
+                    showList(list);
+                } else if (nome.equals("Ambrosio Arcangelo") || nome.equals("ambrosio arcangelo") || nome.equals("Ambrosio arcangelo") || nome.equals("ambrosio Arcangelo")) {
+                    ArrayList<Atleta> list = new ArrayList<>();
+                    Atleta a = new Atleta();
+                    a.setNome("Ambrosio Arcangelo");
+                    a.setUrl("?Atleta=42881&Azione=2");
+                    a.setSesso("M");
+                    a.setSoc("Gym Sport Mania SSD - Terzigno");
+                    a.setAnno("1994");
+                    list.add(a);
+                    RestCall.setListaAtleti(list);
+                    //----- HIDE KEYBOARD AFTER CLICK-----------
+                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
+                    //------------------------------------------
+
+
+                    showList(list);
+                } else if (nome.equals("vincenzo de iulio") || nome.equals("vincenzo de Iulio") || nome.equals("vincenzo De iulio") || nome.equals("vincenzo De Iulio") || nome.equals("Vincenzo de iulio") || nome.equals("Vincenzo de Iulio") || nome.equals("Vincenzo De iulio") || nome.equals("Vincenzo De Iulio")) {
+                    ArrayList<Atleta> list = new ArrayList<>();
+                    Atleta a = new Atleta();
+                    a.setNome("Vincenzo De Iulio");
+                    a.setUrl("?Atleta=72739&Azione=2");
+                    a.setSesso("M");
+                    a.setSoc("Gym Sport Mania SSD - Terzigno");
+                    a.setAnno("1995");
+                    list.add(a);
+                    RestCall.setListaAtleti(list);
+                    //----- HIDE KEYBOARD AFTER CLICK-----------
+                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
+                    //------------------------------------------
+
+                    showList(list);
+                } else {
+                    char[] nomeC = nome.toCharArray();
+                    if (nomeC.length < 3) {
+                        Toast.makeText(getApplicationContext(), "Devi inserire almeno tre caratteri per la ricerca", Toast.LENGTH_LONG).show();
+                    } else {
+                        for (int i = 0; i < nomeC.length; i++) {
+                            if (nomeC[i] == ' ') {
+                                nomeC[i] = '+';
+                            }
+                        }
+                        nome = String.valueOf(nomeC) + "&Azione=1";
+
+                        //System.out.println(nome);
+
+                        //----- HIDE KEYBOARD AFTER CLICK-----------
+                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
+                        //------------------------------------------
+
+                        RestCall restCall = new RestCall(MainActivity.this);
+                        RestCall.setContext(getApplicationContext());
+                        restCall.setUrl(nome);
+                        restCall.execute();
+                    }
                 }
 
 
             }
         });
     }
-
 
 
     @Override
@@ -84,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.menu_setup){
+        if (id == R.id.menu_setup) {
             Intent i = new Intent(MainActivity.this, ImpostazioniActivity.class);
             startActivity(i);
         }
 
-        if (id == R.id.menu_confronto){
+        if (id == R.id.menu_confronto) {
             Intent i = new Intent(MainActivity.this, ConfrontaActivity.class);
             startActivity(i);
         }
@@ -97,8 +153,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showList(ArrayList<Atleta> listaAtleti) {
+        if (listaAtleti.size() == 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Nessun risultato");
+            builder.setMessage("Fai Attenzione a scrivere la sintassi 'nome spazio cognome' oppure aumenta il numero di possibili risultati.");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.setNegativeButton("Impostazioni", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(MainActivity.this, ImpostazioniActivity.class);
+                    startActivity(intent);
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
         ArrayList<ModelloRicerca> models = new ArrayList<ModelloRicerca>();
-        for(Atleta a : listaAtleti){
+        for (Atleta a : listaAtleti) {
+            System.out.println(a.getUrl());
             models.add(new ModelloRicerca(a.getNome(), a.getSoc(), a.getAnno()));
         }
 

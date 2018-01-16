@@ -97,7 +97,7 @@ public class AtletaActivity extends AppCompatActivity {
     }
 */
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_atleta, menu);
         return true;
@@ -107,11 +107,11 @@ public class AtletaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /*if (id == R.id.menu_fav){
+        if (id == R.id.menu_fav){
             aggiungi(a);
-        }*/
+        }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void aggiungi(Atleta a) {
 
@@ -120,13 +120,13 @@ public class AtletaActivity extends AppCompatActivity {
 
     public void setIterface(Atleta atleta, final ArrayList<Gara> listaGare) {
         for (Gara gara : listaGare){
-            //ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + "\n" + gara.getData() + "\n" + gara.getVasca(), gara.getTempo());
-            ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta(), gara.getTempo());
+            ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + "\n" + gara.getData() + "\n" + gara.getVasca(), gara.getTempo());
+            //ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta(), gara.getTempo());
             if (gara.getFederazione().equals("FIN")){
-                modelloGara.setImage(R.drawable.fin2);
+                modelloGara.setImage(R.drawable.finlogo);
             }
             if (gara.getFederazione().equals("UISP")){
-                modelloGara.setImage(R.drawable.uisp);
+                modelloGara.setImage(R.drawable.uisplogo);
             }
             models.add(modelloGara);
         }

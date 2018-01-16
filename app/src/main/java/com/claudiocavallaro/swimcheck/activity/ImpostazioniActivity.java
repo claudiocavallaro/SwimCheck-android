@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.claudiocavallaro.swimcheck.R;
 import com.claudiocavallaro.swimcheck.persistenza.RestCall;
+import com.claudiocavallaro.swimcheck.persistenza.RestCallConfronto;
 
 /**
  * Created by claudiocavallaro on 03/01/18.
@@ -38,6 +39,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Intervallo numerico non consentito", Toast.LENGTH_LONG).show();
                 } else {
                     RestCall.setLimite(Integer.parseInt(numero));
+                    RestCallConfronto.setLimite(Integer.parseInt(numero));
                     finish();
                 }
             }
