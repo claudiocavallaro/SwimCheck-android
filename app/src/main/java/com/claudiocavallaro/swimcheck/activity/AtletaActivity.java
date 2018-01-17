@@ -123,7 +123,7 @@ public class AtletaActivity extends AppCompatActivity {
             ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + "\n" + gara.getData() + "\n" + gara.getVasca(), gara.getTempo());
             //ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta(), gara.getTempo());
             if (gara.getFederazione().equals("FIN")){
-                modelloGara.setImage(R.drawable.finlogo);
+                modelloGara.setImage(R.drawable.fin_logo);
             }
             if (gara.getFederazione().equals("UISP")){
                 modelloGara.setImage(R.drawable.uisplogo);

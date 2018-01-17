@@ -74,19 +74,19 @@ public class GaraActivity extends AppCompatActivity {
             if (i == 0 && !(gara.getTempo().equals("Squalificato"))){
                 ModelloGara modelloGara = new ModelloGara(gara.getTipo() + "\nRECORD PERSONALE", gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
                 if (gara.getFederazione().equals("FIN")){
-                    modelloGara.setImage(R.drawable.fin2);
+                    modelloGara.setImage(R.drawable.fin_logo);
                 }
                 if (gara.getFederazione().equals("UISP")){
-                    modelloGara.setImage(R.drawable.uisp);
+                    modelloGara.setImage(R.drawable.uisplogo);
                 }
                 models.add(modelloGara);
             } else {
                 ModelloGara modelloGara = new ModelloGara(gara.getTipo(), gara.getCitta() + " - " + gara.getData() + " - " + gara.getVasca(), gara.getTempo());
                 if (gara.getFederazione().equals("FIN")){
-                    modelloGara.setImage(R.drawable.fin2);
+                    modelloGara.setImage(R.drawable.fin_logo);
                 }
                 if (gara.getFederazione().equals("UISP")){
-                    modelloGara.setImage(R.drawable.uisp);
+                    modelloGara.setImage(R.drawable.uisplogo);
                 }
                 models.add(modelloGara);
             }
