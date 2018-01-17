@@ -18,6 +18,7 @@ import org.htmlcleaner.TagNode;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.xml.xpath.XPath;

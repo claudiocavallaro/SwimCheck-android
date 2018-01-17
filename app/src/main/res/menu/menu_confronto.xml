@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_grafico"
-        android:icon="@drawable/grafico"
-        app:showAsAction="always"
-        android:title="Grafica"/>
-
-    <item
         android:id="@+id/menu_share"
         android:icon="@drawable/share"
         app:showAsAction="always"

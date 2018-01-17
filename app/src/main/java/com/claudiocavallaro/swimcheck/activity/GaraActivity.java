@@ -1,6 +1,7 @@
 package com.claudiocavallaro.swimcheck.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +17,6 @@ import com.claudiocavallaro.swimcheck.model.Atleta;
 import com.claudiocavallaro.swimcheck.model.Gara;
 import com.claudiocavallaro.swimcheck.vista.ListAdapterGara;
 import com.claudiocavallaro.swimcheck.vista.ModelloGara;
-import com.claudiocavallaro.swimcheck.vista.ModelloRicerca;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +34,7 @@ public class GaraActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ListAdapterGara listAdapterGara;
 
+    private Gara garaFirst;
     private ArrayList<Gara> listaAppoggio;
 
 
@@ -51,6 +52,8 @@ public class GaraActivity extends AppCompatActivity {
         System.out.println(a.getNome());
 
         listaAppoggio = a.cercaGare(garaS);
+
+        garaFirst = listaAppoggio.get(0);
 
         System.out.println(listaAppoggio.size());
 
@@ -132,6 +135,15 @@ public class GaraActivity extends AppCompatActivity {
             Intent i = new Intent(this, GraficoActivity.class);
             i.putExtra("lista", listaAppoggio);
             startActivity(i);
+        }
+
+        if (id == R.id.menu_share){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            String message = "Ciao, volevo condividere con te il mio record personale su " + garaFirst.getTipo() + " di " + garaFirst.getTempo() +", fatto il " + garaFirst.getData() + ".\nTempo cercato con SwimCheck, scaricala dal PlayStore.";
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent,garaFirst.getTipo()));
         }
 
         return super.onOptionsItemSelected(item);

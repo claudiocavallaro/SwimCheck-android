@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".activity.GraficoActivity" android:screenOrientation="landscape"/>
 
         <activity android:name=".activity.ConfrontaActivity" android:screenOrientation="portrait" />

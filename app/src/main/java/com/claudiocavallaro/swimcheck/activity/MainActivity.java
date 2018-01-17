@@ -23,6 +23,9 @@ import com.claudiocavallaro.swimcheck.persistenza.RestCall;
 import com.claudiocavallaro.swimcheck.vista.ListAdapterRicerca;
 import com.claudiocavallaro.swimcheck.vista.ModelloRicerca;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nome = edit.getText().toString();
 
-                if (nome.equals("Luigi Pagano") || nome.equals("luigi pagano") || nome.equals("Luigi pagano") || nome.equals("luigi Pagano")) {
+                if (StringUtils.containsIgnoreCase(nome, "luigi") && StringUtils.containsIgnoreCase(nome, "pagano")) {
                     ArrayList<Atleta> list = new ArrayList<>();
                     Atleta a = new Atleta();
-                    a.setNome("Luigi Pagano");
+                    a.setNome("Pagano Luigi");
                     a.setUrl("?Atleta=72737&Azione=2");
                     a.setSesso("M");
                     a.setSoc("Gym Sport Mania SSD - Terzigno");
@@ -59,13 +62,14 @@ public class MainActivity extends AppCompatActivity {
                     list.add(a);
                     RestCall.setListaAtleti(list);
                     //----- HIDE KEYBOARD AFTER CLICK-----------
+                    edit.setText("");
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                     //------------------------------------------
 
 
                     showList(list);
-                } else if (nome.equals("Ambrosio Arcangelo") || nome.equals("ambrosio arcangelo") || nome.equals("Ambrosio arcangelo") || nome.equals("ambrosio Arcangelo")) {
+                } else if (StringUtils.containsIgnoreCase(nome, "arcangelo") && StringUtils.containsIgnoreCase(nome, "ambrosio")) {
                     ArrayList<Atleta> list = new ArrayList<>();
                     Atleta a = new Atleta();
                     a.setNome("Ambrosio Arcangelo");
@@ -76,16 +80,17 @@ public class MainActivity extends AppCompatActivity {
                     list.add(a);
                     RestCall.setListaAtleti(list);
                     //----- HIDE KEYBOARD AFTER CLICK-----------
+                    edit.setText("");
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                     //------------------------------------------
 
 
                     showList(list);
-                } else if (nome.equals("vincenzo de iulio") || nome.equals("vincenzo de Iulio") || nome.equals("vincenzo De iulio") || nome.equals("vincenzo De Iulio") || nome.equals("Vincenzo de iulio") || nome.equals("Vincenzo de Iulio") || nome.equals("Vincenzo De iulio") || nome.equals("Vincenzo De Iulio")) {
+                } else if (StringUtils.containsIgnoreCase(nome, "Vincenzo") && StringUtils.containsIgnoreCase(nome, "De") && StringUtils.containsIgnoreCase(nome, "Iulio")) {
                     ArrayList<Atleta> list = new ArrayList<>();
                     Atleta a = new Atleta();
-                    a.setNome("Vincenzo De Iulio");
+                    a.setNome("De Iulio Vincenzo");
                     a.setUrl("?Atleta=72739&Azione=2");
                     a.setSesso("M");
                     a.setSoc("Gym Sport Mania SSD - Terzigno");
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     list.add(a);
                     RestCall.setListaAtleti(list);
                     //----- HIDE KEYBOARD AFTER CLICK-----------
+                    edit.setText("");
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                     //------------------------------------------
@@ -112,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
                         //System.out.println(nome);
 
-                        //----- HIDE KEYBOARD AFTER CLICK-----------
+                        //----- HIDE KEYBOARD AFTER CLICK----------
+                        edit.setText("");
                         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         mgr.hideSoftInputFromWindow(edit.getWindowToken(), 0);
                         //------------------------------------------
