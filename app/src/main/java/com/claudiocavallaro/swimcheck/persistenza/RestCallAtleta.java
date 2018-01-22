@@ -77,7 +77,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
         super.onPreExecute();
         spinner = (ProgressBar) mActivity.findViewById(R.id.progressBarAtleta);
         spinner.setVisibility(View.VISIBLE);
-        Toast.makeText(context, "Ricorda che verranno considerata solo le ultime 20 gare disputate", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Ricorda che verranno considerata solo le ultime 100 gare disputate", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -87,6 +87,21 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
 
     @Override
     protected Object doInBackground(Object... objects) {
+        try{
+            scansionaGare("1");
+
+            scansionaGare("2");
+            scansionaGare("3");
+            scansionaGare("4");
+            scansionaGare("5");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private void scansionaGare(String page) {
         try {
             String content = null;
             String cookie = "_ga=GA1.2.1244528332.1514993144; _gid=GA1.2.1050162139.1514993144; " +
@@ -95,7 +110,11 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     "__dtsu=2DE7B66B69F74C5AB71DFF2902BF798A; " +
                     "comitato=2; regione=999; _gat=1";
 
-            content = Jsoup.connect(url).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:57.0) Gecko/20100101 Firefox/57.0").cookie("cookie", cookie).get().toString();
+            String urlPage = this.getUrl() + "&tipoG=0&Vasca=0&page="+ page +"#box1";
+
+            System.out.println(urlPage);
+
+            content = Jsoup.connect(urlPage).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:57.0) Gecko/20100101 Firefox/57.0").cookie("cookie", cookie).get().toString();
 
             TagNode tag = new org.htmlcleaner.HtmlCleaner().clean(content);
             Document doc = null;
@@ -114,10 +133,9 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                 garaString = exprGara.evaluate(doc);
                 int start = garaString.indexOf("(") + 1;
                 int end = garaString.indexOf(")");
-                String garaT = garaString.replaceAll("&deg;","°");
+                String garaT = garaString.replaceAll("&deg;", "°");
                 String garaP = garaT.replaceAll("&igrave;", "ì");
                 String gara = garaP.replaceAll("&agrave;", "à");
-                //gara = gara.substring(0, gara.length() - 1);
                 if (!(gara.equals(""))) {
                     Gara gara1 = new Gara();
                     gara1.setCitta(gara);
@@ -132,34 +150,32 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     String tipo = exprTipo.evaluate(doc);
                     gara1.setTipo(tipo);
 
-                    String expressionTempo = "//div[1]/center[7]/table/tbody/tr["+ i +"]/td[4]/a/text()";
+                    String expressionTempo = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[4]/a/text()";
                     XPathExpression exprTempo = xpath.compile(expressionTempo);
                     String tempo = exprTempo.evaluate(doc);
 
 
-                    if (tempo.equals("")){
+                    if (tempo.equals("")) {
                         expressionTempo = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[4]";
                         exprTempo = xpath.compile(expressionTempo);
                         tempo = exprTempo.evaluate(doc);
                         gara1.setTempo(tempo);
-                        if (tempo.equals("Squalificato")){
+                        if (tempo.equals("Squalificato")) {
                             gara1.setTime(999999999);
-                        }else{
+                        } else {
                             gara1.setTime(gara1.toTime(tempo));
                         }
                     } else {
                         if (gara1.getTipo().contains("4x")) {
-                            gara1.setTempo("Tempo totale staffetta : " + tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length()));
+                            gara1.setTempo("Tempo totale staffetta : " + tempo.substring(tempo.indexOf("gt;") + 3, tempo.length()));
                             gara1.setTime(gara1.toTime(tempo));
                         } else {
-                            String tempoSt = tempo.substring(tempo.indexOf("gt;") + 3 , tempo.length());
+                            String tempoSt = tempo.substring(tempo.indexOf("gt;") + 3, tempo.length());
                             gara1.setTempo(tempoSt);
                             System.out.println(tempo);
                             gara1.setTime(gara1.toTime(tempoSt));
                         }
                     }
-
-
 
 
                     String expressionVasca = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[5]";
@@ -191,16 +207,11 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
             //--------------------------------------------------------------------------------------
 
 
-
             atleta.setListaGare(listaGare);
 
-
-
-
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
