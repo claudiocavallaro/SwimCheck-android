@@ -8,9 +8,9 @@
         app:showAsAction="always"
         android:title="Confronta"/>
 
-    <item
+   <!-- <item
         android:id="@+id/menu_setup"
-        android:title="Impostazioni" />
+        android:title="Impostazioni" /> -->
 
 
 </menu>

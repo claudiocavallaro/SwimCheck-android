@@ -182,7 +182,7 @@ public class ConfrontaActivity extends AppCompatActivity {
         if (listaAtleti.size() == 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Nessun risultato");
-            builder.setMessage("Fai Attenzione a scrivere la sintassi 'nome spazio cognome' oppure aumenta il numero di possibili risultati.");
+            builder.setMessage("Controlla:\nChe il nome sia specificato correttamente.\nChe sei connesso ad internet.\nSe il problema persiste fai una segnalazione.");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

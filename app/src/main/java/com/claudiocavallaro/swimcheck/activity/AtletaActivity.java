@@ -97,7 +97,7 @@ public class AtletaActivity extends AppCompatActivity {
     }
 */
 
-  /*  @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_atleta, menu);
         return true;
@@ -114,6 +114,7 @@ public class AtletaActivity extends AppCompatActivity {
     }*/
 
     private void aggiungi(Atleta a) {
+
 
     }
 

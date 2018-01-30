@@ -34,7 +34,7 @@ public class RestCall extends AsyncTask<Object, Void, Object> {
     private String url = "http://aquatime.it/tempim.php?AtletaSRC=";
     private static ArrayList<Atleta> listaAtleti = new ArrayList<Atleta>();
 
-    private static int limite = 5;
+    private static int limite = 10;
 
     private MainActivity mainActivity;
 

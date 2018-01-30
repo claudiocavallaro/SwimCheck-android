@@ -40,6 +40,8 @@ public class RestCallResult extends AsyncTask<Object, Void, Object> {
     private ProgressBar spinner;
     private static Context context;
 
+    private String atl;
+
 
     private ArrayList<Atleta> listaAtleta;
 
@@ -85,12 +87,15 @@ public class RestCallResult extends AsyncTask<Object, Void, Object> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+        Toast.makeText(context, atl, Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected Object doInBackground(Object... objects) {
         for (int k = 0; k < listaAtleta.size(); k++) {
             Atleta atleta = listaAtleta.get(k);
+            atl = atleta.getNome();
+
             String url = "http://aquatime.it/tempim.php" + atleta.getUrl();
 
             ArrayList<Gara> listaGare = new ArrayList<>();

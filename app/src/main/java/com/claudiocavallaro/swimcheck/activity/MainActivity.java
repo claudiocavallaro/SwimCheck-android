@@ -147,10 +147,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.menu_setup) {
+        /*if (id == R.id.menu_setup) {
             Intent i = new Intent(MainActivity.this, ImpostazioniActivity.class);
             startActivity(i);
-        }
+        }*/
 
         if (id == R.id.menu_confronto) {
             Intent i = new Intent(MainActivity.this, ConfrontaActivity.class);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         if (listaAtleti.size() == 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Nessun risultato");
-            builder.setMessage("Fai Attenzione a scrivere la sintassi 'nome spazio cognome' oppure aumenta il numero di possibili risultati.");
+            builder.setMessage("Controlla:\nChe il nome sia specificato correttamente.\nChe sei connesso ad internet.\nSe il problema persiste fai una segnalazione.");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
