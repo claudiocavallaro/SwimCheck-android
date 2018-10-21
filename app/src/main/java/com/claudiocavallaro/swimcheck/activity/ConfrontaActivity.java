@@ -82,6 +82,7 @@ public class ConfrontaActivity extends AppCompatActivity {
                     a.setAnno("1999");
                     list.add(a);
                     RestCallConfronto.setListaAtleti(list);
+
                     //----- HIDE KEYBOARD AFTER CLICK-----------
                     edit.setText("");
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

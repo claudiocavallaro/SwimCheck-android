@@ -96,6 +96,8 @@ public class RestCallResult extends AsyncTask<Object, Void, Object> {
             Atleta atleta = listaAtleta.get(k);
             atl = atleta.getNome();
 
+            boolean flag = false ;
+
             String url = "http://aquatime.it/tempim.php" + atleta.getUrl();
 
             ArrayList<Gara> listaGare = new ArrayList<>();
@@ -131,6 +133,11 @@ public class RestCallResult extends AsyncTask<Object, Void, Object> {
                         String expressionGara = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[1]";
                         XPathExpression exprGara = xpath.compile(expressionGara);
                         garaString = exprGara.evaluate(doc);
+
+                        if (garaString.equals("")){
+                            j = 6;
+                        }
+
                         int start = garaString.indexOf("(") + 1;
                         int end = garaString.indexOf(")");
                         //String gara = garaString.substring(start, end);

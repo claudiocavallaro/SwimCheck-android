@@ -83,6 +83,7 @@ public class ResultActivity extends AppCompatActivity {
         });
 
 
+
         ArrayList<ModelloConfronto> modelloConfrontos = new ArrayList<>();
 
         for (String string : tipiGara) {

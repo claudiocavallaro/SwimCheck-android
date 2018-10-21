@@ -38,6 +38,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
     private ProgressBar spinner;
     private static Context context;
 
+    private boolean flag = false;
     private Atleta atleta;
 
 
@@ -87,14 +88,30 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
 
     @Override
     protected Object doInBackground(Object... objects) {
-        try{
+        try {
+            // Inizio a scandire la prima pagina
             scansionaGare("1");
 
-            scansionaGare("2");
-            scansionaGare("3");
-            scansionaGare("4");
-            scansionaGare("5");
-        } catch (Exception e){
+            // Il resto lo devo fare perchè devo sempre controllare il valore di flag
+
+            if (flag != true){
+                scansionaGare("2");
+            }
+
+            if (flag != true){
+                scansionaGare("3");
+            }
+
+            if (flag != true){
+                scansionaGare("4");
+            }
+
+            if (flag != true){
+                scansionaGare("5");
+            }
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -110,7 +127,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                     "__dtsu=2DE7B66B69F74C5AB71DFF2902BF798A; " +
                     "comitato=2; regione=999; _gat=1";
 
-            String urlPage = this.getUrl() + "&tipoG=0&Vasca=0&page="+ page +"#box1";
+            String urlPage = this.getUrl() + "&tipoG=0&Vasca=0&page=" + page + "#box1";
 
             System.out.println(urlPage);
 
@@ -131,11 +148,18 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
                 String expressionGara = "//div[1]/center[7]/table/tbody/tr[" + i + "]/td[1]";
                 XPathExpression exprGara = xpath.compile(expressionGara);
                 garaString = exprGara.evaluate(doc);
+
+                if (garaString.equals("")) {
+                    flag = true;
+                }
+
                 int start = garaString.indexOf("(") + 1;
                 int end = garaString.indexOf(")");
+
                 String garaT = garaString.replaceAll("&deg;", "°");
                 String garaP = garaT.replaceAll("&igrave;", "ì");
-                String gara = garaP.replaceAll("&agrave;", "à");
+                String garaX = garaP.replaceAll("&quot;", "''");
+                String gara = garaX.replaceAll("&agrave;", "à");
                 if (!(gara.equals(""))) {
                     Gara gara1 = new Gara();
                     gara1.setCitta(gara);
@@ -209,7 +233,7 @@ public class RestCallAtleta extends AsyncTask<Object, Void, Object> {
 
             atleta.setListaGare(listaGare);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
