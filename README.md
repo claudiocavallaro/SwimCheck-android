@@ -1,4 +1,7 @@
 # SwimCheck
+-> In order to increase the availability of this project I also made a backed inspired by the logic in this application.
+```https://github.com/claudiocavallaro/swimTime```
+This project ends because the site where I found the data is no more free.
 ## 
 Built in 2018
 (Not published anymore!)
